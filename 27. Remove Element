@@ -19,15 +19,10 @@ class Solution:
         从列表尾部向头部遍历：
             如果查找到满足条件的元素，则与尾部元素进行呼唤，同时尾部标记减一
         """
-        if not nums:
-            return 0
-        flag=len(nums)-1
-        index=len(nums)-1
+        """
+        flag,index=len(nums)-1,len(nums)-1
         while index>=0:
             if nums[index]==val:
-                tmp=nums[index]
-                nums[index]=nums[flag]
-                nums[flag]=tmp
-                flag=flag-1
+                nums[index],nums[flag],flag=nums[flag],nums[index],flag-1
             index=index-1
-        return flag+1 
+        return flag+1
