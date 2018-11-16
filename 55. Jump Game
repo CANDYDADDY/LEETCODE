@@ -14,6 +14,14 @@ class Solution:
         """
         :type nums: List[int]
         :rtype: bool
+        while 列表尾索引大于0：
+            判断尾索引对应的位置是否是跳跃位置
+                尾索引位置改为目标位置
+            尾索引减一
+        if 头节点值大于等于目标值位置
+            返回True
+        else
+            返回False
         """
         target=len(nums)-1
         tag=len(nums)-2
