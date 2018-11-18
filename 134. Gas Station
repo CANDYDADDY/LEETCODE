@@ -1,0 +1,52 @@
+Description:
+There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). You begin the journey with an empty tank at one of the gas stations.
+Return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1.
+Note:
+If there exists a solution, it is guaranteed to be unique.
+Both input arrays are non-empty and have the same length.
+Each element in the input arrays is a non-negative integer.
+
+Solution1，蛮力法：
+class Solution:
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        -2,-2,-2,3,3
+        """
+        gaslefted=[]
+        for i in range(len(gas)):
+            gaslefted.append(gas[i]-cost[i])
+        for num in range(len(gaslefted)):
+            if gaslefted[num]>=0:
+                index, lefting, val = 0, 0, num
+                while index<len(gaslefted):
+                    lefting=lefting+gaslefted[val]
+                    if lefting>=0:
+                        val=(val+1)%len(gaslefted)
+                        index=index+1
+                    else:
+                        break
+                if index==len(gaslefted):
+                    return num
+        return -1
+Solution,贪心算法：
+class Solution:
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        if sum(gas) < sum(cost):
+            return -1
+        tank = 0
+        min_gas, min_gas_loc = 0, None
+        for i in range(len(gas)):
+            tank += gas[i] - cost[i]
+            if tank < min_gas:
+                min_gas = tank
+                min_gas_loc = i
+        return 0 if min_gas_loc is None else (min_gas_loc + 1) % len(gas)
