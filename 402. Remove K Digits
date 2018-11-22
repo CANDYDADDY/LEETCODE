@@ -1,0 +1,27 @@
+Description:
+Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible. 
+Note:
+The length of num is less than 10002 and will be ≥ k.
+The given num does not contain any leading zero.
+
+
+
+Solution:
+class Solution:
+    def removeKdigits(self, num, k):
+        """
+        :type num: str
+        :type k: int
+        :rtype: str
+        """
+        for i in range(k):
+            if len(num)==1:
+                return '0'
+            else:
+                for j in range(1,len(num)):
+                    if num[j-1]>num[j]:
+                        num=num[:j-1]+num[j:]
+                        break
+                    if j==len(num)-1:
+                        num=num[:j]
+        return str(int(num))
